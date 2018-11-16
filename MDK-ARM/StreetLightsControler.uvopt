@@ -168,207 +168,207 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Temperature</ItemText>
+          <ItemText>calendar,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Humidity</ItemText>
+          <ItemText>SysTick1ms,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Illumination</ItemText>
+          <ItemText>SysTick10ms,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>calendar,0x0A</ItemText>
+          <ItemText>SysTick100ms,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SysTick1ms,0x0A</ItemText>
+          <ItemText>SysTick1s,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SysTick10ms,0x0A</ItemText>
+          <ItemText>BootLoaderVersion</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SysTick100ms,0x0A</ItemText>
+          <ItemText>SoftWareVersion</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SysTick1s,0x0A</ItemText>
+          <ItemText>HardWareVersion</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>BootLoaderVersion</ItemText>
+          <ItemText>DeviceName</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SoftWareVersion</ItemText>
+          <ItemText>DeviceID</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>HardWareVersion</ItemText>
+          <ItemText>DeviceUUID</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DeviceName</ItemText>
+          <ItemText>Operators,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DeviceID</ItemText>
+          <ItemText>APName</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DeviceUUID</ItemText>
+          <ItemText>ServerDomain</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Operators,0x0A</ItemText>
+          <ItemText>ServerIP</ItemText>
         </Ww>
         <Ww>
           <count>15</count>
           <WinNumber>1</WinNumber>
-          <ItemText>APName</ItemText>
+          <ItemText>ServerPort</ItemText>
         </Ww>
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ServerDomain</ItemText>
+          <ItemText>UpLoadINCL,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>17</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ServerIP</ItemText>
+          <ItemText>PowerINTFC,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>18</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ServerPort</ItemText>
+          <ItemText>TimeZone,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>19</count>
           <WinNumber>1</WinNumber>
-          <ItemText>UpLoadINCL,0x0A</ItemText>
+          <ItemText>bg96</ItemText>
         </Ww>
         <Ww>
           <count>20</count>
           <WinNumber>1</WinNumber>
-          <ItemText>PowerINTFC,0x0A</ItemText>
+          <ItemText>GetTimeOK</ItemText>
         </Ww>
         <Ww>
           <count>21</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TimeZone,0x0A</ItemText>
+          <ItemText>LightLevelPercent,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>22</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ConnectState</ItemText>
+          <ItemText>GpsInfo</ItemText>
         </Ww>
         <Ww>
           <count>23</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SignalIntensity,0x0A</ItemText>
+          <ItemText>RegularTimeStruct,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>24</count>
           <WinNumber>1</WinNumber>
-          <ItemText>bg96</ItemText>
+          <ItemText>HoldReg</ItemText>
         </Ww>
         <Ww>
           <count>25</count>
           <WinNumber>1</WinNumber>
-          <ItemText>GetTimeOK</ItemText>
+          <ItemText>GetGPSOK</ItemText>
         </Ww>
         <Ww>
           <count>26</count>
           <WinNumber>1</WinNumber>
-          <ItemText>InventrOutPutCurrent</ItemText>
+          <ItemText>DeviceWorkMode,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>27</count>
           <WinNumber>1</WinNumber>
-          <ItemText>InventrOutPutVoltage</ItemText>
+          <ItemText>Usart3RxBuf</ItemText>
         </Ww>
         <Ww>
           <count>28</count>
           <WinNumber>1</WinNumber>
-          <ItemText>LightLevelPercent,0x0A</ItemText>
+          <ItemText>Usart5RxBuf</ItemText>
         </Ww>
         <Ww>
           <count>29</count>
           <WinNumber>1</WinNumber>
-          <ItemText>GpsInfo</ItemText>
+          <ItemText>current</ItemText>
         </Ww>
         <Ww>
           <count>30</count>
           <WinNumber>1</WinNumber>
-          <ItemText>RegularTimeStruct,0x0A</ItemText>
+          <ItemText>voltage</ItemText>
         </Ww>
         <Ww>
           <count>31</count>
           <WinNumber>1</WinNumber>
-          <ItemText>HoldReg</ItemText>
+          <ItemText>freq</ItemText>
         </Ww>
         <Ww>
           <count>32</count>
           <WinNumber>1</WinNumber>
-          <ItemText>InventrBusy</ItemText>
+          <ItemText>power_p</ItemText>
         </Ww>
         <Ww>
           <count>33</count>
           <WinNumber>1</WinNumber>
-          <ItemText>InventrDisable</ItemText>
+          <ItemText>power_q</ItemText>
         </Ww>
         <Ww>
           <count>34</count>
           <WinNumber>1</WinNumber>
-          <ItemText>GetGPSOK</ItemText>
+          <ItemText>power_s</ItemText>
         </Ww>
         <Ww>
           <count>35</count>
           <WinNumber>1</WinNumber>
-          <ItemText>DeviceWorkMode,0x0A</ItemText>
+          <ItemText>energy_p</ItemText>
         </Ww>
         <Ww>
           <count>36</count>
           <WinNumber>1</WinNumber>
-          <ItemText>voltage,0x0A</ItemText>
+          <ItemText>energy_q</ItemText>
         </Ww>
         <Ww>
           <count>37</count>
           <WinNumber>1</WinNumber>
-          <ItemText>send_buf</ItemText>
+          <ItemText>energy_s</ItemText>
         </Ww>
         <Ww>
           <count>38</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Usart3RxBuf</ItemText>
+          <ItemText>ConnectState</ItemText>
         </Ww>
         <Ww>
           <count>39</count>
           <WinNumber>1</WinNumber>
-          <ItemText>voltage,0x0A</ItemText>
+          <ItemText>\\StreetLightsControler\../USER/task_net.c\ConnectState</ItemText>
         </Ww>
         <Ww>
           <count>40</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Usart5RxBuf</ItemText>
+          <ItemText>SignalIntensity,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -454,8 +454,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>296</TopLine>
-      <CurrentLine>328</CurrentLine>
+      <TopLine>290</TopLine>
+      <CurrentLine>322</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\common.c</PathWithFileName>
       <FilenameWithoutPath>common.c</FilenameWithoutPath>
@@ -502,7 +502,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>15</TopLine>
+      <TopLine>8</TopLine>
       <CurrentLine>35</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\task_hci.c</PathWithFileName>
@@ -516,10 +516,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>52</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>34</TopLine>
-      <CurrentLine>66</CurrentLine>
+      <TopLine>2</TopLine>
+      <CurrentLine>21</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\task_sensor.c</PathWithFileName>
       <FilenameWithoutPath>task_sensor.c</FilenameWithoutPath>
@@ -534,7 +534,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>17</TopLine>
+      <TopLine>11</TopLine>
       <CurrentLine>30</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\task_net.c</PathWithFileName>
@@ -550,7 +550,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>24</TopLine>
+      <TopLine>26</TopLine>
       <CurrentLine>40</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\task_main.c</PathWithFileName>
@@ -646,8 +646,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>28</CurrentLine>
+      <TopLine>75</TopLine>
+      <CurrentLine>102</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\SYSTEM\delay\delay.c</PathWithFileName>
       <FilenameWithoutPath>delay.c</FilenameWithoutPath>
@@ -822,7 +822,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>343</TopLine>
+      <TopLine>345</TopLine>
       <CurrentLine>367</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\DEVICEDRIVER\bg96\bg96.c</PathWithFileName>
@@ -852,10 +852,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>5</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>6</CurrentLine>
+      <TopLine>16</TopLine>
+      <CurrentLine>43</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\DEVICEDRIVER\pwm\pwm.c</PathWithFileName>
       <FilenameWithoutPath>pwm.c</FilenameWithoutPath>
@@ -886,8 +886,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>197</TopLine>
-      <CurrentLine>211</CurrentLine>
+      <TopLine>80</TopLine>
+      <CurrentLine>112</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\DEVICEDRIVER\att7059x\att7059x.c</PathWithFileName>
       <FilenameWithoutPath>att7059x.c</FilenameWithoutPath>
@@ -1438,8 +1438,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>364</TopLine>
-      <CurrentLine>381</CurrentLine>
+      <TopLine>373</TopLine>
+      <CurrentLine>390</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FREERTOS\src\port.c</PathWithFileName>
       <FilenameWithoutPath>port.c</FilenameWithoutPath>
@@ -1470,8 +1470,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>3015</TopLine>
-      <CurrentLine>3032</CurrentLine>
+      <TopLine>2682</TopLine>
+      <CurrentLine>2699</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\FREERTOS\src\tasks.c</PathWithFileName>
       <FilenameWithoutPath>tasks.c</FilenameWithoutPath>

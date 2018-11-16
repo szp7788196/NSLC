@@ -14,7 +14,7 @@ u8 eepbuf[256];
 u16 cnt = 0;
 u8 led_s = 0;
 RCC_ClocksTypeDef RCC_Clocks;
-u32 voltage = 0;
+
 int main(void)
 {
 //	SCB->VTOR = FLASH_BASE | 0x08000; /* Vector Table Relocation in Internal FLASH. */
@@ -49,12 +49,6 @@ int main(void)
 //		eepbuf[i] = AT24CXX_ReadOneByte(i);
 //	}
 //	AT24CXX_WriteOneByte(UU_ID_ADD,255);
-
-//	while(1)
-//	{
-//		voltage = Att7059xGetCurrent1RMS();
-//		delay_ms(500);
-//	}
 
 	mem_init();
 
