@@ -707,6 +707,9 @@ u8 ReadDeviceID(void)
 		}
 
 		memset(DeviceID,0,6);
+
+		DeviceID[4] = 0x01;
+		DeviceID[5] = 0x02;
 	}
 
 	return ret;
@@ -977,7 +980,7 @@ void WriteOTAInfo(u8 *hold_reg,u8 reset)
 {
 	u16 crc_code = 0;
 	u16 i = 0;
-	
+
 	if(reset == 1)
 	{
 		HaveNewFirmWare   = 0;
@@ -985,12 +988,12 @@ void WriteOTAInfo(u8 *hold_reg,u8 reset)
 		NewFirmWareVer    = 101;
 		LastBagByteNum    = 0;
 	}
-	
+
 	if(NewFirmWareAdd != 0xAA && NewFirmWareAdd != 0x55)
 	{
 		NewFirmWareAdd = 0xAA;
 	}
-	
+
 	*(hold_reg + FIRM_WARE_FLAG_S_ADD) 			= HaveNewFirmWare;
 	*(hold_reg + FIRM_WARE_STORE_ADD_S_ADD) 	= NewFirmWareAdd;
 	*(hold_reg + FIRM_WARE_VER_S_ADD + 0) 		= (u8)((NewFirmWareVer >> 8) & 0x00FF);
@@ -1014,9 +1017,9 @@ void WriteOTAInfo(u8 *hold_reg,u8 reset)
 u8 ReadOTAInfo(u8 *hold_reg)
 {
 	u8 ret = 0;
-	
+
 	ret = ReadDataFromEepromToHoldBuf(hold_reg,OTA_INFO_ADD,OTA_INFO_LEN);
-	
+
 	if(ret == 1)
 	{
 		HaveNewFirmWare 	= *(hold_reg + FIRM_WARE_FLAG_S_ADD);
@@ -1031,7 +1034,7 @@ u8 ReadOTAInfo(u8 *hold_reg)
 	{
 		WriteOTAInfo(HoldReg,1);		//复位OTA信息
 	}
-	
+
 	return ret;
 }
 
@@ -1180,51 +1183,126 @@ u16 PackNetData(u8 fun_code,u8 *inbuf,u16 inbuf_len,u8 *outbuf)
 //将传感器数据解包到指定缓冲区
 u16 UnPackSensorData(SensorMsg_S *msg,u8 *buf)
 {
+	u16 i = 0;
 	u16 len = 0;
 
 	if(msg != NULL)
 	{
 #ifdef SMALLER_BOARD
-		*(buf + 0) = (u8)(msg->out_put_current >> 8);
-		*(buf + 1) = (u8)(msg->out_put_current & 0x00FF);
-		
-		*(buf + 2) = (u8)(msg->out_put_voltage >> 8);
-		*(buf + 3) = (u8)(msg->out_put_voltage & 0x00FF);
-		
-		*(buf + 4) = msg->signal_intensity;
-		*(buf + 5) = msg->hour;
-		*(buf + 6) = msg->minute;
-		*(buf + 7) = msg->second;
+
+		*(buf + i) = (u8)(msg->in_put_current >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_current;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_voltage >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_voltage;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_freq >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_freq;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_power_p >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_power_p;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_power_q >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_power_q;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_power_s >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_power_s;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_energy_p >> 16);
+		i ++;
+		*(buf + i) = (u8)(msg->in_put_energy_p >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_energy_p;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_energy_q >> 16);
+		i ++;
+		*(buf + i) = (u8)(msg->in_put_energy_q >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_energy_q;
+		i ++;
+
+		*(buf + i) = (u8)(msg->in_put_energy_s >> 16);
+		i ++;
+		*(buf + i) = (u8)(msg->in_put_energy_s >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->in_put_energy_s;
+		i ++;
+
+		*(buf + i) = (u8)(msg->out_put_current >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->out_put_current;
+		i ++;
+
+		*(buf + i) = (u8)(msg->out_put_voltage >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->out_put_voltage;
+		i ++;
+
+		*(buf + i) = msg->signal_intensity;
+		i ++;
+		*(buf + i) = msg->hour;
+		i ++;
+		*(buf + i) = msg->minute;
+		i ++;
+		*(buf + i) = msg->second;
+		i ++;
 
 		len = strlen(msg->gps);
 
-		memcpy(buf + 8,msg->gps,len);
+		memcpy(buf + i,msg->gps,len);
 
-		len = len + 8;
+		len = len + i;
 #else
-		*(buf + 0) = (u8)(msg->temperature >> 8);
-		*(buf + 1) = (u8)(msg->temperature & 0x00FF);
-		*(buf + 2) = (u8)(msg->humidity >> 8);
-		*(buf + 3) = (u8)(msg->humidity & 0x00FF);
-		*(buf + 4) = (u8)(msg->illumination >> 8);
-		*(buf + 5) = (u8)(msg->illumination & 0x00FF);
-		
-		*(buf + 6) = (u8)(msg->out_put_current >> 8);
-		*(buf + 7) = (u8)(msg->out_put_current & 0x00FF);
-		
-		*(buf + 8) = (u8)(msg->out_put_voltage >> 8);
-		*(buf + 9) = (u8)(msg->out_put_voltage & 0x00FF);
-		
-		*(buf + 10) = msg->signal_intensity;
-		*(buf + 11) = msg->hour;
-		*(buf + 12) = msg->minute;
-		*(buf + 13) = msg->second;
+		*(buf + i) = (u8)(msg->temperature >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->temperature;
+		i ++;
+		*(buf + i) = (u8)(msg->humidity >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->humidity;
+		i ++;
+		*(buf + i) = (u8)(msg->illumination >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->illumination;
+		i ++;
+
+		*(buf + i) = (u8)(msg->out_put_current >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->out_put_current;
+		i ++;
+
+		*(buf + i) = (u8)(msg->out_put_voltage >> 8);
+		i ++;
+		*(buf + i) = (u8)msg->out_put_voltage;
+		i ++;
+
+		*(buf + i) = msg->signal_intensity;
+		i ++;
+		*(buf + i) = msg->hour;
+		i ++;
+		*(buf + i) = msg->minute;
+		i ++;
+		*(buf + i) = msg->second;
+		i ++;
 
 		len = strlen(msg->gps);
 
-		memcpy(buf + 14,msg->gps,len);
+		memcpy(buf + i,msg->gps,len);
 
-		len = len + 14;
+		len = len + i;
 #endif
 	}
 
