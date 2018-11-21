@@ -8,6 +8,8 @@
 #include "mcp4725.h"
 #include "att7059x.h"
 #include "inventr.h"
+#include "timer.h"
+#include "dali.h"
 
 u16 i = 0;
 u8 eepbuf[256];
@@ -30,7 +32,7 @@ int main(void)
 	Mcp4725Init();
 	LED_Init();
 	RELAY_Init();
-	TIM2_Init(99,7199);
+	TIM2_Init(7499,0);
 	TIM5_Int_Init(2000,36 - 1);
 	USART1_Init(115200);
 	USART2_Init(115200);

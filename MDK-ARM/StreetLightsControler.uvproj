@@ -351,7 +351,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\DEVICEDRIVER;..\FREERTOS\inc;..\MALLOC;..\JSON;..\FWLIB\inc;..\PROTOCOL;..\SYSTEM\delay;..\SYSTEM\sys;..\USER;..\PERIPHERAL\iic1;..\DEVICEDRIVER\24cxx;..\DEVICEDRIVER\sht2x;..\DEVICEDRIVER\bh1750;..\PERIPHERAL\iic2;..\DEVICEDRIVER\led;..\PERIPHERAL\rtc;..\PERIPHERAL\usart;..\DEVICEDRIVER\bg96;..\NET;..\DEVICEDRIVER\power;..\DEVICEDRIVER\mcp4725;..\DEVICEDRIVER\att7059x;..\DEVICEDRIVER\pwm</IncludePath>
+              <IncludePath>..\CORE;..\DEVICEDRIVER;..\FREERTOS\inc;..\MALLOC;..\JSON;..\FWLIB\inc;..\PROTOCOL;..\SYSTEM\delay;..\SYSTEM\sys;..\USER;..\PERIPHERAL\iic1;..\DEVICEDRIVER\24cxx;..\DEVICEDRIVER\sht2x;..\DEVICEDRIVER\bh1750;..\PERIPHERAL\iic2;..\DEVICEDRIVER\led;..\PERIPHERAL\rtc;..\PERIPHERAL\usart;..\DEVICEDRIVER\bg96;..\NET;..\DEVICEDRIVER\power;..\DEVICEDRIVER\mcp4725;..\DEVICEDRIVER\att7059x;..\DEVICEDRIVER\pwm;..\DEVICEDRIVER\dali;..\PERIPHERAL\timer</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -497,6 +497,11 @@
               <FileType>1</FileType>
               <FilePath>..\PERIPHERAL\usart\usart.c</FilePath>
             </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\PERIPHERAL\timer\timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -546,6 +551,11 @@
               <FileName>att7059x.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\DEVICEDRIVER\att7059x\att7059x.c</FilePath>
+            </File>
+            <File>
+              <FileName>dali.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\DEVICEDRIVER\dali\dali.c</FilePath>
             </File>
           </Files>
         </Group>

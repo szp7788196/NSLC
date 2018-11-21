@@ -90,7 +90,6 @@ void Usart2FrameSend(void);
 void Usart3FrameSend(void);	
 void Usart4FrameSend(void);	
 void Usart5FrameSend(void);
-void TIM2_Init(u16 arr,u16 psc);
 
 u8 UsartSendString(USART_TypeDef* USARTx,u8 *str, u16 len);
 
