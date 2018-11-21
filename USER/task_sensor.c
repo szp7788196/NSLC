@@ -60,23 +60,23 @@ void vTaskSENSOR(void *pvParameters)
 			InventrOutPutVoltage = InventrGetOutPutVoltage();	//读取电源输出电压
 		}
 
-		InputCurrent = Att7059xGetCurrent1();
+		InputCurrent 	= Att7059xGetCurrent1();
 		delay_ms(300);
-		InputVoltage = Att7059xGetVoltage();
+		InputVoltage 	= Att7059xGetVoltage();
 		delay_ms(300);
-		InputFreq = Att7059xGetVoltageFreq();
+		InputFreq 		= Att7059xGetVoltageFreq();
 		delay_ms(300);
-		InputPowerP = Att7059xGetChannel1PowerP();
+		InputPowerP 	= Att7059xGetChannel1PowerP();
 		delay_ms(300);
-		InputPowerQ = Att7059xGetChannel1PowerQ();
+		InputPowerQ 	= Att7059xGetChannel1PowerQ();
 		delay_ms(300);
-		InputPowerS = Att7059xGetChannel1PowerS();
+		InputPowerS 	= Att7059xGetChannel1PowerS();
 		delay_ms(300);
-		InputEnergyP = Att7059xGetEnergyP();
+		InputEnergyP 	= Att7059xGetEnergyP();
 		delay_ms(300);
-		InputEnergyQ = Att7059xGetEnergyQ();
+		InputEnergyQ 	= Att7059xGetEnergyQ();
 		delay_ms(300);
-		InputEnergyS = Att7059xGetEnergyS();
+		InputEnergyS 	= Att7059xGetEnergyS();
 		delay_ms(300);
 
 		if(push_data_to_net == 1)
@@ -93,8 +93,8 @@ void vTaskSENSOR(void *pvParameters)
 				p_tSensorMsg->in_put_current 	= (u16)(InputCurrent + 0.5f);
 				p_tSensorMsg->in_put_voltage 	= (u16)(InputVoltage + 0.5f);
 				p_tSensorMsg->in_put_freq 		= (u16)(InputFreq * 100.0f + 0.5f);
-				p_tSensorMsg->in_put_power_p 	= (u16)(InputPowerP + 0.5f);
-				p_tSensorMsg->in_put_power_q 	= (u16)(InputPowerQ + 0.5f);
+				p_tSensorMsg->in_put_power_p 	= InputPowerP >= 0 ? (s16)(InputPowerP + 0.5f) : (s16)(InputPowerP - 0.5f);
+				p_tSensorMsg->in_put_power_q 	= InputPowerQ >= 0 ? (s16)(InputPowerQ + 0.5f) : (s16)(InputPowerQ - 0.5f);
 				p_tSensorMsg->in_put_power_s 	= (u16)(InputPowerS + 0.5f);
 				p_tSensorMsg->in_put_energy_p 	= (u32)(InputEnergyP * 1000.0f + 0.5f);
 				p_tSensorMsg->in_put_energy_q 	= (u32)(InputEnergyQ * 1000.0f + 0.5f);

@@ -1205,14 +1205,14 @@ u16 UnPackSensorData(SensorMsg_S *msg,u8 *buf)
 		*(buf + i) = (u8)msg->in_put_freq;
 		i ++;
 
-		*(buf + i) = (u8)(msg->in_put_power_p >> 8);
+		*(buf + i) = (u8)((msg->in_put_power_p >> 8) & 0x00FF);
 		i ++;
-		*(buf + i) = (u8)msg->in_put_power_p;
+		*(buf + i) = (u8)(msg->in_put_power_p & 0x00FF);
 		i ++;
 
-		*(buf + i) = (u8)(msg->in_put_power_q >> 8);
+		*(buf + i) = (u8)((msg->in_put_power_q >> 8) & 0x00FF);
 		i ++;
-		*(buf + i) = (u8)msg->in_put_power_q;
+		*(buf + i) = (u8)(msg->in_put_power_q & 0x00FF);
 		i ++;
 
 		*(buf + i) = (u8)(msg->in_put_power_s >> 8);

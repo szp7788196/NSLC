@@ -13,8 +13,8 @@ typedef struct SensorMsg
 	u16 in_put_current;
 	u16 in_put_voltage;
 	u16 in_put_freq;
-	u16 in_put_power_p;
-	u16 in_put_power_q;
+	s16 in_put_power_p;
+	s16 in_put_power_q;
 	u16 in_put_power_s;
 	u32 in_put_energy_p;
 	u32 in_put_energy_q;
