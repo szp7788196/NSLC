@@ -708,8 +708,8 @@ u8 ReadDeviceID(void)
 
 		memset(DeviceID,0,6);
 
-		DeviceID[4] = 0x01;
-		DeviceID[5] = 0x02;
+		DeviceID[4] = 0x01;		//代表方形单灯控制器
+		DeviceID[5] = 0x01;		//代表单灯控制器
 	}
 
 	return ret;

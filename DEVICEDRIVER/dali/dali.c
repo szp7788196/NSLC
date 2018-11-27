@@ -20,9 +20,9 @@ void DALI_Init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	EXTI_InitTypeDef EXTI_InitStructure;
-	
+
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE);
-	
+
 	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_6 ;				//DALI TX
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -32,7 +32,7 @@ void DALI_Init(void)
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	
+
 	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource15);
 
 	EXTI_InitStructure.EXTI_Line = EXTI_Line15;
@@ -40,7 +40,7 @@ void DALI_Init(void)
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
 	EXTI_Init(&EXTI_InitStructure);
-	
+
 	EXTI_ClearITPendingBit(EXTI_Line15);
 }
 
@@ -59,8 +59,7 @@ void dali_receive_data(void)
 	flag = RECEIVING_DATA;
 	recv_num = 0;
 	recv_ok = FALSE;
-	
-	// disable external interrupt on DALI in port
+
 	EXTI_InitStructure.EXTI_Line = EXTI_Line15;
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
@@ -71,12 +70,11 @@ void dali_receive_data(void)
 void dali_send_data(u8 address, u8 command)
 {
 	EXTI_InitTypeDef EXTI_InitStructure;
-	
+
 	send_num = ((((u16)address) << 8) & 0xFF00) + ((u16)command & 0x00FF);
 	bit_count = 0;
 	tick_count = 0;
 
-	// disable external interrupt - no incoming data now
 	EXTI_InitStructure.EXTI_Line = EXTI_Line15;
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
@@ -86,7 +84,7 @@ void dali_send_data(u8 address, u8 command)
 	flag = SENDING_DATA;
 }
 
-bool dali_get_DALIIN(void) 
+bool dali_get_DALIIN(void)
 {
 	if (DALIIN_INVERT)
 	{
@@ -148,7 +146,7 @@ void dali_receive_tick(void)
 	actual_val = dali_get_DALIIN();
 	tick_count ++;
 
-	if(actual_val != former_val)		// edge detected
+	if(actual_val != former_val)					// edge detected
 	{
 		switch(bit_count)
 		{
@@ -156,46 +154,46 @@ void dali_receive_tick(void)
 				if (tick_count > 2)
 				{
 					tick_count = 0;
-					bit_count  = 1; // start bit
+					bit_count  = 1; 				// start bit
 				}
 			break;
-				
-			case 17:      // 1st stop bit
-				if(tick_count > 6) // stop bit error, no edge should exist
+
+			case 17:      							// 1st stop bit
+				if(tick_count > 6) 					// stop bit error, no edge should exist
 					flag = ERR;
 			break;
-				
-			default:      // other bits
+
+			default:      							// other bits
 			if(tick_count > 6)
 			{
-				if(bit_count < 9) // store bit in address byte
+				if(bit_count < 9) 					// store bit in address byte
 				{
 					recv_num |= (actual_val << (8 - bit_count));
 				}
-//				else             // store bit in data byte
+//				else             					// store bit in data byte(主机模式下只接收一个字节，此处屏蔽掉)
 //				{
 //					dataByte |= (actual_val << (16-bit_count));
 //				}
-				
+
 				bit_count ++;
 				tick_count = 0;
 			}
 			break;
 		}
 	}
-	else // voltage level stable
+	else 											// voltage level stable
 	{
 		switch(bit_count)
 		{
 			case 0:
-				if(tick_count == 8)  // too long start bit
+				if(tick_count == 8)  				// too long start bit
 					flag = ERR;
 			break;
-				
-			case 9:				// First stop bit
+
+			case 9:									// First stop bit
 			if (tick_count == 8)
 			{
-				if (actual_val == 0) // wrong level of stop bit
+				if (actual_val == 0) 				// wrong level of stop bit
 				{
 					flag = ERR;
 				}
@@ -206,13 +204,12 @@ void dali_receive_tick(void)
 				}
 			}
 			break;
-			
-			case 10:			// Second stop bit
+
+			case 10:								// Second stop bit
 			if (tick_count == 8)
 			{
 				flag = NO_ACTION;
 
-				//enable EXTI
 				EXTI_InitStructure.EXTI_Line = EXTI_Line15;
 				EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 				EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
@@ -222,22 +219,22 @@ void dali_receive_tick(void)
 				recv_ok = TRUE;
 			}
 			break;
-			
-			default: 			// normal bits
-			if(tick_count == 10)	// too long delay before edge
-			{ 
+
+			default: 								// normal bits
+			if(tick_count == 10)					// too long delay before edge
+			{
 				flag = ERR;
 			}
 			break;
 		}
 	}
-	
+
 	former_val = actual_val;
-	
+
 	if(flag == ERR)
 	{
 		flag = NO_ACTION;
-		//enable EXTI
+
 		EXTI_InitStructure.EXTI_Line = EXTI_Line15;
 		EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 		EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
@@ -249,64 +246,60 @@ void dali_receive_tick(void)
 void dali_send_tick(void)
 {
 	EXTI_InitTypeDef EXTI_InitStructure;
-	//access to the routine just every 4 ticks = every half bit
-	if((tick_count & 0x03) == 0)
+
+	if((tick_count & 0x03) == 0)						//access to the routine just every 4 ticks = every half bit
 	{
 		if(tick_count < 160)
 		{
-			// settling time between forward and backward frame
-			if(tick_count < 24)
+
+			if(tick_count < 24)							// settling time between forward and backward frame
 			{
 				tick_count ++;
 				return;
 			}
 
-			// start of the start bit
-			if(tick_count == 24)
+
+			if(tick_count == 24)						// start of the start bit
 			{
 				dali_set_DALIOUT(FALSE);
 				tick_count ++;
 				return;
 			}
-
-			// edge of the start bit
-			// 28 ticks = 28/9600 = 2,92ms = delay between forward and backward message frame
-			if(tick_count == 28)
+														// edge of the start bit
+			if(tick_count == 28)						// 28 ticks = 28/9600 = 2,92ms = delay between forward and backward message frame
 			{
 				dali_set_DALIOUT(TRUE);
 				tick_count ++;
 				return;
 			}
 
-			// bit value (edge) selection
-			bit_value = (bool)( (send_num >> (15-bit_count)) & 0x01);
+														// bit value (edge) selection
+			bit_value = (bool)((send_num >> (15 - bit_count)) & 0x01);
 
-			// Every half bit -> Manchester coding
-			if( !( (tick_count - 24) & 0x0007) )
-			{ // div by 8
-				if(dali_get_DALIOUT() == bit_value ) // former value of bit = new value of bit
+
+			if(!((tick_count - 24) & 0x0007))			// Every half bit -> Manchester coding
+			{ 											// div by 8
+				if(dali_get_DALIOUT() == bit_value) 	// former value of bit = new value of bit
 					dali_set_DALIOUT((bool)(1 - bit_value));
 			}
 
-			// Generate edge for actual bit
-			if( !( (tick_count - 28) & 0x0007) )
+			if(!((tick_count - 28) & 0x0007))			// Generate edge for actual bit
 			{
 				dali_set_DALIOUT(bit_value);
 				bit_count ++;
 			}
 		}
 		else
-		{ // end of data byte, start of stop bits
-			if(tick_count == 160)
+		{
+			if(tick_count == 160)						// end of data byte, start of stop bits
 			{
-				dali_set_DALIOUT(TRUE); // start of stop bit
+				dali_set_DALIOUT(TRUE); 				// start of stop bit
 			}
 
-			// end of stop bits, no settling time
-			if(tick_count == 176)
+			if(tick_count == 176)						// end of stop bits, no settling time
 			{
 				flag = NO_ACTION;
-				//enable EXTI
+
 				EXTI_InitStructure.EXTI_Line = EXTI_Line15;
 				EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 				EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
@@ -315,7 +308,7 @@ void dali_send_tick(void)
 			}
 		}
 	}
-	
+
 	tick_count ++;
 
 	return;

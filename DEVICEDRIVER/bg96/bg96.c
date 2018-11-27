@@ -40,6 +40,7 @@ unsigned char BG96_InitStep1(pBg96 *bg96)
 	(*bg96)->net_data_id = 0;
 	(*bg96)->break_out_wait_cmd = 0;
 	(*bg96)->rx_cnt = 0;
+	(*bg96)->imei = NULL;
 
 	(*bg96)->bg96_mode 						= NET_MODE;
 	(*bg96)->cip_mux_mode					= SIGNLE;
@@ -86,7 +87,7 @@ unsigned char BG96_InitStep1(pBg96 *bg96)
 	(*bg96)->get_AT_QISEND					= bg96_get_AT_QISEND;
 	(*bg96)->get_AT_QIDNSGIP 				= bg96_get_AT_QIDNSGIP;
     (*bg96)->get_AT_QPING 					= bg96_get_AT_QPING;
-
+	(*bg96)->get_AT_GSN 					= bg96_get_AT_GSN;
 
 	(*bg96)->set_AT_QGPS					= bg96_set_AT_QGPS;
 	(*bg96)->set_AT_QGPSLOC 				= bg96_set_AT_QGPSLOC;
@@ -284,6 +285,17 @@ unsigned char BG96_InitStep2(pBg96 *bg96)
 
 	fail_time = 0;
 	while(!(*bg96)->get_AT_QIACT(bg96,(char *)buf))
+	{
+		fail_time ++;
+		if(fail_time >= 1)
+		{
+			goto RE_HARD_RESET;
+		}
+	}
+	delay_ms(100);
+
+	fail_time = 0;
+	while(!(*bg96)->get_AT_GSN(bg96))
 	{
 		fail_time ++;
 		if(fail_time >= 1)
@@ -1177,6 +1189,46 @@ unsigned char bg96_get_AT_QPING(pBg96 *bg96,const char *host, char *msg)
     }
     (*bg96)->bg96_mode = NET_MODE;
 
+#ifdef BG96_PRINTF_RX_BUF
+	(*bg96)->print_rx_buf(bg96);
+#endif
+    return ret;
+}
+
+unsigned char bg96_get_AT_GSN(pBg96 *bg96)
+{
+	unsigned char ret = 0;
+	char buf[32];
+
+    (*bg96)->wait_bg96_mode(bg96,CMD_MODE);
+    (*bg96)->clear_rx_cmd_buffer(bg96);
+    printf("AT+GSN\r\n");
+    if((*bg96)->wait_cmd1(bg96,TIMEOUT_2S) == RECEIVED)
+    {
+        if(search_str((unsigned char *)(*bg96)->rx_cmd_buf, "OK") != -1)
+		{
+			memset(buf,0,32);
+			
+			get_str1((unsigned char *)(*bg96)->rx_cmd_buf, "\r\n", 1, "\r\n", 2, (unsigned char *)buf);
+			
+			if(strlen(buf) == 15)
+			{
+				if((*bg96)->imei == NULL)
+				{
+					(*bg96)->imei = (char *)mymalloc(sizeof(char) * 16);
+					
+					if((*bg96)->imei != NULL)
+					{
+						memset((*bg96)->imei,0,16);
+						memcpy((*bg96)->imei,buf,15);
+						
+						ret = 1;
+					}
+				}
+			}
+		}
+    }
+    (*bg96)->bg96_mode = NET_MODE;
 #ifdef BG96_PRINTF_RX_BUF
 	(*bg96)->print_rx_buf(bg96);
 #endif

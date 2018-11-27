@@ -28,22 +28,22 @@ void TIM2_IRQHandler(void)
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 	{
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
-		
+
 		if(tick < 96)
 		{
 			tick ++;
-			
+
 			if(tick >= 96)					//约10ms
 			{
 				tick = 0;
-				
+
 				Usart1ReciveFrameEnd();		//检测USART1是否接收完成一帧数据
 				Usart3ReciveFrameEnd();		//检测USART3是否接收完成一帧数据
 				Usart4ReciveFrameEnd();		//检测UART4是否接收完成一帧数据
 				Usart5ReciveFrameEnd();		//检测UART5是否接收完成一帧数据
 			}
 		}
-		
+
 		if(dali_get_flag()==RECEIVING_DATA)
 		{
 			dali_receive_tick();

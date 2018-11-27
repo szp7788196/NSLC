@@ -196,7 +196,8 @@ struct BG96
 	unsigned char 	(*get_AT_QISEND)(pBg96 *bg96);
 	unsigned char 	(*get_AT_QIDNSGIP)(pBg96 *bg96,const char *domain, unsigned char **ip);
 	unsigned char 	(*get_AT_QPING)(pBg96 *bg96,const char *host, char *msg);
-
+	unsigned char   (*get_AT_GSN)(pBg96 *bg96);
+	
 	unsigned char 	(*set_AT_QGPS)(pBg96 *bg96);
 	unsigned char 	(*set_AT_QGPSLOC)(pBg96 *bg96,char *msg);
 	unsigned char 	(*set_AT_QGPSEND)(pBg96 *bg96);
@@ -228,6 +229,8 @@ struct BG96
 	CIP_MUX_MODE	cip_mux_mode;
 
 	USART_TypeDef* 	USARTx;
+	
+	char   			*imei;
 
 	void 			(*uart_interrupt_event)(pBg96 *bg96);
     void 			(*net_data_state_process)(pBg96 *bg96,char c);
@@ -281,12 +284,13 @@ unsigned char 	bg96_set_AT_QISEND(pBg96 *bg96,unsigned char *buffer, unsigned in
 unsigned char 	bg96_get_AT_QISEND(pBg96 *bg96);
 unsigned char 	bg96_get_AT_QIDNSGIP(pBg96 *bg96,const char *domain, unsigned char **ip);
 unsigned char 	bg96_get_AT_QPING(pBg96 *bg96,const char *host, char *msg);
+unsigned char   bg96_get_AT_GSN(pBg96 *bg96);
 
 unsigned char 	bg96_set_AT_QGPS(pBg96 *bg96);
 unsigned char 	bg96_set_AT_QGPSLOC(pBg96 *bg96,char *msg);
 unsigned char 	bg96_set_AT_QGPSEND(pBg96 *bg96);
 
-unsigned char bg96_set_AT_QNTP(pBg96 *bg96,char *server,unsigned short port,char *msg);
+unsigned char 	bg96_set_AT_QNTP(pBg96 *bg96,char *server,unsigned short port,char *msg);
 
 
 void        	bg96_clear_rx_cmd_buffer(pBg96 *bg96);

@@ -62,7 +62,7 @@ void vTaskNET(void *pvParameters)
 
 			case (u8)GET_READY:						//模块已经就绪
 				res = TryToConnectToServer();
-			
+
 				if(res == 0)						//打开链接失败
 				{
 					goto RE_RESET;					//复位模块
@@ -79,7 +79,7 @@ void vTaskNET(void *pvParameters)
 
 			case (u8)ON_SERVER:						//已经连接到服务器
 				res = OnServerHandle();
-				
+
 				if(res == -1)
 				{
 					goto RE_RESET;					//复位模块
@@ -92,7 +92,7 @@ void vTaskNET(void *pvParameters)
 		}
 
 		delay_ms(100);
-		
+
 		perccennnt = mem_perused();
 		NET_Satck = uxTaskGetStackHighWaterMark(NULL);
 	}
@@ -130,7 +130,7 @@ s8 OnServerHandle(void)
 	{
 		ret = -1;													//一分钟内没有收到数据，强行关闭连接
 	}
-	
+
 	return ret;
 }
 
@@ -295,7 +295,7 @@ u8 GetTimeInfo(char *server,u8 port, u8 *flag)
 			ret = 1;
 		}
 	}
-	
+
 //	if(*flag != 1)
 //	{
 //		*flag = 3;
