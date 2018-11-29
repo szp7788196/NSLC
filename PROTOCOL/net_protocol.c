@@ -20,7 +20,7 @@ s16 NetDataFrameHandle(pTcp *tcp,u8 *outbuf,u8 *hold_reg,CONNECT_STATE_E connect
 	if(len != 0)
 	{
 		time_out = 0;
-		
+
 		if(connect_state == ON_SERVER)
 		{
 			ret = (s16)NetDataAnalysis(buf,len,outbuf,hold_reg);
@@ -30,15 +30,15 @@ s16 NetDataFrameHandle(pTcp *tcp,u8 *outbuf,u8 *hold_reg,CONNECT_STATE_E connect
 	else
 	{
 		time_out ++;
-		
+
 		if(time_out >= 600)		//一分钟内未收到任何数据，强行关闭连接
 		{
 			time_out = 0;
-			
+
 			ret = -1;
 		}
 	}
-	
+
 	return ret;
 }
 
@@ -115,11 +115,11 @@ u16 NetDataAnalysis(u8 *buf,u16 len,u8 *outbuf,u8 *hold_reg)
 					case 0xF0:									//设置设备UUID，固定64个字节
 						ret = SetDeviceUUID(cmd_code,buf + 10,data_len,outbuf);
 					break;
-					
+
 					case 0xF1:									//从服务器获取时间戳
 						ret = GetTimeDateFromServer(cmd_code,buf + 10,data_len,outbuf);
 					break;
-					
+
 					case 0xF2:									//从服务器获取时间戳
 						ret = SetDevicePowerIntfc(cmd_code,buf + 10,data_len,outbuf);
 					break;
@@ -190,7 +190,7 @@ u16 ControlLightLevel(u8 cmd_code,u8 *buf,u8 len,u8 *outbuf)
 			LightLevelPercent = 2 * level;
 
 			DeviceWorkMode = MODE_MANUAL;		//强制转换为手动模式
-			
+
 			memcpy(&HoldReg[LIGHT_LEVEL_ADD],&LightLevelPercent,LIGHT_LEVEL_LEN - 2);
 			WriteDataFromHoldBufToEeprom(&HoldReg[LIGHT_LEVEL_ADD],LIGHT_LEVEL_ADD, LIGHT_LEVEL_LEN - 2);
 		}
@@ -221,7 +221,7 @@ u16 SetUpdateFirmWareInfo(u8 cmd_code,u8 *buf,u8 len,u8 *outbuf)
 		NewFirmWareVer    = (((u16)(*(buf + 0))) << 8) + (u16)(*(buf + 1));
 		NewFirmWareBagNum = (((u16)(*(buf + 2))) << 8) + (u16)(*(buf + 3));
 		LastBagByteNum    = *(buf + 4);
-	
+
 		if(NewFirmWareBagNum == 0 || NewFirmWareBagNum > MAX_FW_BAG_NUM \
 			|| NewFirmWareVer == 0 || NewFirmWareVer > MAX_FW_VER \
 			|| LastBagByteNum == 0 || LastBagByteNum > MAX_FW_LAST_BAG_NUM)  //128 + 2 + 4 = 134
@@ -243,9 +243,9 @@ u16 SetUpdateFirmWareInfo(u8 cmd_code,u8 *buf,u8 len,u8 *outbuf)
 			{
 				NewFirmWareAdd = 0xAA;
 			}
-			
+
 			WriteOTAInfo(HoldReg,0);		//将数据写入EEPROM
-			
+
 			NeedToReset = 1;				//重新启动
 		}
 	}
@@ -292,11 +292,11 @@ u16 SetDeviceUpLoadINCL(u8 cmd_code,u8 *buf,u8 len,u8 *outbuf)
 	if(len == 2)												//数据长度必须是64
 	{
 		incl = ((u16)(*(buf + 0)) << 16) + (*(buf + 1));
-		
+
 		if(incl <= MAX_UPLOAD_INVL)
 		{
 			UpLoadINCL = incl;
-			
+
 			memcpy(&HoldReg[UPLOAD_INVL_ADD],buf,2);
 			WriteDataFromHoldBufToEeprom(&HoldReg[UPLOAD_INVL_ADD],UPLOAD_INVL_ADD, UPLOAD_INVL_LEN - 2);
 		}
@@ -442,7 +442,7 @@ u16 SetDeviceUUID(u8 cmd_code,u8 *buf,u8 len,u8 *outbuf)
 		memset(uuid_buf,0,38);
 
 		memcpy(&HoldReg[UU_ID_ADD],buf,36);
-		
+
 		GetDeviceUUID();
 
 		WriteDataFromHoldBufToEeprom(&HoldReg[UU_ID_ADD],UU_ID_ADD, UU_ID_LEN - 2);
@@ -479,12 +479,12 @@ u16 GetTimeDateFromServer(u8 cmd_code,u8 *buf,u8 len,u8 *outbuf)
 		hour = *(buf + 3);
 		min  = *(buf + 4);
 		sec  = *(buf + 5);
-		
+
 		if(year >= 18 && mon <= 12 && day <= 31 && hour <= 23 && min <= 59 && sec <= 59)
 		{
 			RTC_Set(year + 2000,mon,day,hour,min,sec);
-			
-			GetTimeOK = 1;
+
+			GetTimeOK = 2;
 		}
 		else
 		{
