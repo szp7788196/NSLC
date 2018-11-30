@@ -68,6 +68,7 @@
 #define TIMEOUT_175S 175000
 #define TIMEOUT_180S 180000
 
+#define IMEI_LEN	15
 
 #define NET_NULL 0x00000000
 

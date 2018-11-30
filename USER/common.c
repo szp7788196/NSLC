@@ -1,5 +1,6 @@
 #include "common.h"
 #include "24cxx.h"
+#include "bg96.h"
 
 
 u8 HoldReg[HOLD_REG_LEN];						//保持寄存器
@@ -1142,35 +1143,43 @@ u16 PackNetData(u8 fun_code,u8 *inbuf,u16 inbuf_len,u8 *outbuf)
 
 	if(DeviceID != NULL)
 	{
-		memcpy(outbuf + 1,DeviceID,DEVICE_ID_LEN - 2);			//设备ID
+		memcpy(outbuf + 1,DeviceID,DEVICE_ID_LEN - 2);					//设备ID
 
 		*(outbuf + 7) = 0x68;
 		*(outbuf + 8) = fun_code;
-		*(outbuf + 9) = inbuf_len + UU_ID_LEN - 2;
+		*(outbuf + 9) = inbuf_len + UU_ID_LEN - 2 + IMEI_LEN;
 
 		if(DeviceUUID != NULL)
 		{
-			memcpy(outbuf + 10,DeviceUUID,UU_ID_LEN - 2);		//UUID
+			memcpy(outbuf + 10,DeviceUUID,UU_ID_LEN - 2);				//UUID
 		}
 		else
 		{
-			memcpy(outbuf + 10,"000000000000000000000000000000000000",UU_ID_LEN - 2);	//默认UUID
+			memset(outbuf + 10,'0',UU_ID_LEN - 2);						//默认UUID
+		}
+		if(bg96->imei != NULL)
+		{
+			memcpy(outbuf + 10 + UU_ID_LEN - 2,bg96->imei,IMEI_LEN);	//IMEI
+		}
+		else
+		{
+			memset(outbuf + 10 + UU_ID_LEN - 2,'0',IMEI_LEN);			//默认IMEI
 		}
 
-		memcpy(outbuf + 10 + UU_ID_LEN - 2,inbuf,inbuf_len);	//具体数据内容
+		memcpy(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN,inbuf,inbuf_len);	//具体数据内容
 
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len) = CalCheckSum(outbuf, 10 + inbuf_len + UU_ID_LEN - 2);
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len) = CalCheckSum(outbuf, 10 + inbuf_len + UU_ID_LEN - 2 + IMEI_LEN);
 
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 1) = 0x16;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 1) = 0x16;
 
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 2) = 0xFE;
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 3) = 0xFD;
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 4) = 0xFC;
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 5) = 0xFB;
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 6) = 0xFA;
-		*(outbuf + 10 + UU_ID_LEN - 2 + inbuf_len + 7) = 0xF9;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 2) = 0xFE;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 3) = 0xFD;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 4) = 0xFC;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 5) = 0xFB;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 6) = 0xFA;
+		*(outbuf + 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 7) = 0xF9;
 
-		len = 10 + UU_ID_LEN - 2 + inbuf_len + 7 + 1;
+		len = 10 + UU_ID_LEN - 2 + IMEI_LEN + inbuf_len + 7 + 1;
 	}
 	else
 	{

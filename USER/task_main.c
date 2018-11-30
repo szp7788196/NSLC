@@ -36,7 +36,7 @@ void vTaskMAIN(void *pvParameters)
 		if(MirrorLightLevelPercent != LightLevelPercent)
 		{
 			MirrorLightLevelPercent = LightLevelPercent;
-			
+
 			SetLightLevel(PowerINTFC, LightLevelPercent);
 		}
 
@@ -46,7 +46,7 @@ void vTaskMAIN(void *pvParameters)
 
 			GetTimeOK = 2;
 		}
-  
+
 		if(NeedToReset == 1)								//接收到重启的命令
 		{
 			NeedToReset = 0;
