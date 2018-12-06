@@ -313,17 +313,12 @@ void bg96_hard_init(pBg96 *bg96)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC, ENABLE);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_5 | GPIO_Pin_6;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
@@ -357,18 +352,18 @@ void bg96_hard_reset(pBg96 *bg96)
 	u8 i = 0;
 
 	RE_START:
-	BG96_PWREN_HIGH;						//关闭电源
+	BG96_PWREN_LOW;						//关闭电源
 	delay_ms(300);
-	BG96_PWREN_LOW;					//打开电源
-	
+	BG96_PWREN_HIGH;					//打开电源
+
 	delay_ms(100);
-	
+
 	BG96_RST_HIGH;						//硬件复位
 	delay_ms(300);
 	BG96_RST_LOW;
 
 	delay_ms(100);
-	
+
 	if(READ_BG96_STATUS == 1)			//关机状态
 	{
 		(*bg96)->hard_enable(bg96);		//发送开机脉冲
@@ -1208,22 +1203,21 @@ unsigned char bg96_get_AT_GSN(pBg96 *bg96)
         if(search_str((unsigned char *)(*bg96)->rx_cmd_buf, "OK") != -1)
 		{
 			memset(buf,0,32);
-			
+
 			get_str1((unsigned char *)(*bg96)->rx_cmd_buf, "\r\n", 1, "\r\n", 2, (unsigned char *)buf);
-			
+
 			if(strlen(buf) == 15)
 			{
 				if((*bg96)->imei == NULL)
 				{
 					(*bg96)->imei = (char *)mymalloc(sizeof(char) * 16);
-					
-					if((*bg96)->imei != NULL)
-					{
-						memset((*bg96)->imei,0,16);
-						memcpy((*bg96)->imei,buf,15);
-						
-						ret = 1;
-					}
+				}
+				if((*bg96)->imei != NULL)
+				{
+					memset((*bg96)->imei,0,16);
+					memcpy((*bg96)->imei,buf,15);
+
+					ret = 1;
 				}
 			}
 		}
