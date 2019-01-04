@@ -93,8 +93,8 @@ void vTaskNET(void *pvParameters)
 
 		delay_ms(100);
 
-		perccennnt = mem_perused();
-		NET_Satck = uxTaskGetStackHighWaterMark(NULL);
+//		perccennnt = mem_perused();
+//		NET_Satck = uxTaskGetStackHighWaterMark(NULL);
 	}
 }
 

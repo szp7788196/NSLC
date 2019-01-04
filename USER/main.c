@@ -10,6 +10,7 @@
 #include "inventr.h"
 #include "timer.h"
 #include "dali.h"
+#include "cd4051b.h"
 
 u16 i = 0;
 u8 eepbuf[256];
@@ -19,7 +20,7 @@ RCC_ClocksTypeDef RCC_Clocks;
 
 int main(void)
 {
-//	SCB->VTOR = FLASH_BASE | 0x08000; /* Vector Table Relocation in Internal FLASH. */
+	SCB->VTOR = FLASH_BASE | 0x08000; /* Vector Table Relocation in Internal FLASH. */
 	IWDG_Init(IWDG_Prescaler_128,625);	//128分频 312.5HZ 625为2秒
 
 	RCC_GetClocksFreq(&RCC_Clocks);		//查看各个总线的时钟频率
@@ -32,6 +33,7 @@ int main(void)
 	Mcp4725Init();
 	LED_Init();
 	RELAY_Init();
+	CD4051B_Init();
 	TIM2_Init(7499,0);
 	TIM5_Int_Init(2000,36 - 1);
 	USART1_Init(115200);

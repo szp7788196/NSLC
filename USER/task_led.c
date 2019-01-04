@@ -50,7 +50,7 @@ void vTaskLED(void *pvParameters)
 		
 		delay_ms(10);
 		
-		LED_Satck = uxTaskGetStackHighWaterMark(NULL);
+//		LED_Satck = uxTaskGetStackHighWaterMark(NULL);
 	}
 }
 

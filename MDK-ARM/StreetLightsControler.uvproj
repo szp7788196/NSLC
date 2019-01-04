@@ -73,9 +73,9 @@
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe  --bin -o   ..\OUTPUT\Obj\StreetLightsControler.bin ..\OUTPUT\Obj\StreetLightsControler.axf</UserProg1Name>
+            <UserProg1Name>C:\Keil\ARM\ARMCC\bin\fromelf.exe  --bin -o   ..\OUTPUT\Obj\SLC.bin ..\OUTPUT\Obj\StreetLightsControler.axf</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -297,7 +297,7 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x8000000</StartAddress>
+                <StartAddress>0x8008000</StartAddress>
                 <Size>0x1c000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
@@ -351,7 +351,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\DEVICEDRIVER;..\FREERTOS\inc;..\MALLOC;..\JSON;..\FWLIB\inc;..\PROTOCOL;..\SYSTEM\delay;..\SYSTEM\sys;..\USER;..\PERIPHERAL\iic1;..\DEVICEDRIVER\24cxx;..\DEVICEDRIVER\sht2x;..\DEVICEDRIVER\bh1750;..\PERIPHERAL\iic2;..\DEVICEDRIVER\led;..\PERIPHERAL\rtc;..\PERIPHERAL\usart;..\DEVICEDRIVER\bg96;..\NET;..\DEVICEDRIVER\power;..\DEVICEDRIVER\mcp4725;..\DEVICEDRIVER\att7059x;..\DEVICEDRIVER\pwm;..\DEVICEDRIVER\dali;..\PERIPHERAL\timer</IncludePath>
+              <IncludePath>..\CORE;..\DEVICEDRIVER;..\FREERTOS\inc;..\MALLOC;..\JSON;..\FWLIB\inc;..\PROTOCOL;..\SYSTEM\delay;..\SYSTEM\sys;..\USER;..\PERIPHERAL\iic1;..\DEVICEDRIVER\24cxx;..\DEVICEDRIVER\sht2x;..\DEVICEDRIVER\bh1750;..\PERIPHERAL\iic2;..\DEVICEDRIVER\led;..\PERIPHERAL\rtc;..\PERIPHERAL\usart;..\DEVICEDRIVER\bg96;..\NET;..\DEVICEDRIVER\power;..\DEVICEDRIVER\mcp4725;..\DEVICEDRIVER\att7059x;..\DEVICEDRIVER\pwm;..\DEVICEDRIVER\dali;..\PERIPHERAL\timer;..\DEVICEDRIVER\cd4015b</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -556,6 +556,11 @@
               <FileName>dali.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\DEVICEDRIVER\dali\dali.c</FilePath>
+            </File>
+            <File>
+              <FileName>cd4051b.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\DEVICEDRIVER\cd4015b\cd4051b.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -50,7 +50,7 @@ u8 *ServerPort = NULL;				//服务器端口号
 
 /***************************运行参数相关*****************************/
 u16 UpLoadINCL = 10;				//数据上传时间间隔0~65535秒
-u8 PowerINTFC = 2;					//电源控制接口编号 0:0~10V  1:PWM  2:UART
+u8 PowerINTFC = 2;					//电源控制接口编号 0:0~10V  1:PWM  2:UART  3:DALI
 u8 TimeZone = 8;					//时区偏移量
 
 /***************************其他*****************************/
@@ -1197,8 +1197,6 @@ u16 UnPackSensorData(SensorMsg_S *msg,u8 *buf)
 
 	if(msg != NULL)
 	{
-#ifdef SMALLER_BOARD
-
 		*(buf + i) = (u8)(msg->in_put_current >> 8);
 		i ++;
 		*(buf + i) = (u8)msg->in_put_current;
@@ -1274,45 +1272,6 @@ u16 UnPackSensorData(SensorMsg_S *msg,u8 *buf)
 		memcpy(buf + i,msg->gps,len);
 
 		len = len + i;
-#else
-		*(buf + i) = (u8)(msg->temperature >> 8);
-		i ++;
-		*(buf + i) = (u8)msg->temperature;
-		i ++;
-		*(buf + i) = (u8)(msg->humidity >> 8);
-		i ++;
-		*(buf + i) = (u8)msg->humidity;
-		i ++;
-		*(buf + i) = (u8)(msg->illumination >> 8);
-		i ++;
-		*(buf + i) = (u8)msg->illumination;
-		i ++;
-
-		*(buf + i) = (u8)(msg->out_put_current >> 8);
-		i ++;
-		*(buf + i) = (u8)msg->out_put_current;
-		i ++;
-
-		*(buf + i) = (u8)(msg->out_put_voltage >> 8);
-		i ++;
-		*(buf + i) = (u8)msg->out_put_voltage;
-		i ++;
-
-		*(buf + i) = msg->signal_intensity;
-		i ++;
-		*(buf + i) = msg->hour;
-		i ++;
-		*(buf + i) = msg->minute;
-		i ++;
-		*(buf + i) = msg->second;
-		i ++;
-
-		len = strlen(msg->gps);
-
-		memcpy(buf + i,msg->gps,len);
-
-		len = len + i;
-#endif
 	}
 
 	return len;

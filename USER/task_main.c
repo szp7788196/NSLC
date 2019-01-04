@@ -10,6 +10,7 @@
 TaskHandle_t xHandleTaskMAIN = NULL;
 
 u8 MirrorLightLevelPercent = 0;
+u8 MirrorPowerINTFC = 0xFF;
 unsigned portBASE_TYPE MAIN_Satck;
 
 void vTaskMAIN(void *pvParameters)
@@ -33,9 +34,11 @@ void vTaskMAIN(void *pvParameters)
 			}
 		}
 
-		if(MirrorLightLevelPercent != LightLevelPercent)
+		if(MirrorLightLevelPercent != LightLevelPercent || \
+			MirrorPowerINTFC != PowerINTFC)
 		{
 			MirrorLightLevelPercent = LightLevelPercent;
+			MirrorPowerINTFC = PowerINTFC;
 
 			SetLightLevel(PowerINTFC, LightLevelPercent);
 		}
@@ -57,7 +60,7 @@ void vTaskMAIN(void *pvParameters)
 		}
 
 		delay_ms(100);
-		MAIN_Satck = uxTaskGetStackHighWaterMark(NULL);
+//		MAIN_Satck = uxTaskGetStackHighWaterMark(NULL);
 	}
 }
 

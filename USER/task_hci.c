@@ -73,7 +73,7 @@ void vTaskHCI(void *pvParameters)
 
 		delay_ms(100);
 
-		HCI_Satck = uxTaskGetStackHighWaterMark(NULL);
+//		HCI_Satck = uxTaskGetStackHighWaterMark(NULL);
 	}
 }
 

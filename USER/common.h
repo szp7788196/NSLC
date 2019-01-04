@@ -47,9 +47,14 @@
 
 #define SOFT_WARE_VRESION			101			//软件版本号
 
-#define SMALLER_BOARD							//单灯控制器PCB板类型
+#define NEW_BOARD								//新版设备
 
 #define DEBUG_LOG								//是否打印调试信息
+
+#define INTFC_0_10V					0			//0~10V调光
+#define INTFC_PWM					1			//PWM调光
+#define INTFC_DIGIT					2			//数字调光
+#define INTFC_DALI					3			//DALI调光
 
 #define MAX_FW_VER					9999
 #define MAX_FW_BAG_NUM				896
